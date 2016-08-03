@@ -2,6 +2,10 @@
 
 # Design of a Small Wind Turbine
 
+![preview1](preview1.jpg)
+
+![preview2](preview2.jpg)
+
 This is a backup of my high school project created back in 2012. It is a direct
 copy, without any modification. Because I was stupid when I was a kid, the
 source is quite messy.
