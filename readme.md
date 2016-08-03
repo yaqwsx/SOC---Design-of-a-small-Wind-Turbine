@@ -21,7 +21,7 @@ thesis won a 2nd place in [SOČ](http://soc.cz).
 
 Small note: Three years later I build a turbine according design in this theses.
 However there are no photos, as my SD card with them died. Since then, I backup!
-(and you should too).
+(and you should too). See more at [Aurae repostiory](https://github.com/yaqwsx/Aurae).
 
 # Návrh malé větrné turbíny
 
@@ -39,4 +39,5 @@ nalezení [zde](text_v2/final.pdf).
 
 Poznámka na závěr: Tři roky po napsání této práce jsem skutečně postavil turbínu
 popisovou v této práci. Bohužel k ní nemám žádnou dokumentaci, jelikož SD karta
-s veškerými fotografiemi umřela. Od té doby zálohuji!
+s veškerými fotografiemi umřela. Od té doby zálohuji! Více informací je k nalezení
+v [repozitáři Aurae](https://github.com/yaqwsx/Aurae).
