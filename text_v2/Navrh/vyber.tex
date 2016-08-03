@@ -1,0 +1,35 @@
+\chapter{Výběr typu turbíny}
+	Prvním krokem pro návrh větrné turbíny je určení typu. Každý typ má své specifické charakteristiky s~výhodami a nevýhodami. V~této kapitole jsem stručně popsal jednotlivé typy větrných turbín a rozebral jejich výhody a nevýhody. Na závěr kapitoly jsem ze zjištěných poznatků vybral vhodný typ větrné turbíny.	
+	\section{Typy větrných turbín}\label{sec:typy_turbin}
+		Větrné turbíny se běžně rozdělují na 2 základní skupiny podle principu – na odporové a vztlakové \cite{Rychetnik:Motory}.
+		
+		Odporové turbíny jsou z~historického hlediska starší. Základním principem těchto turbín je plocha, která klade větru odpor. Na této ploše vzniká síla, která rotorem otáčí. Plocha se však musí dostávat zpět na výchozí polohu. Běžně se používají 2 řešení\cite{Rychetnik:Motory}:
+		
+		\paragraph{Odporová plocha má různý odpor}
+			Odporová plocha má při různých směrech obtékání různý aerodynamický odpor. Typickým příkladem je klasický miskový anemometr, jehož lopatky mají tvar duté polokoule. Polokoule má z vypouklé strany mnohem menší odpor než ze strany s~dutinou. Díky tomu se může miskový anemometr otáčet dokola. Na podobném principu pracuje i Savoniův rotor, který používá různě tvarované válcové plochy.
+		\paragraph{Odporová plocha je natáčena}
+			Plocha je v závislosti na pozici rotoru a směru větru natáčena. Toto řešení může dosahovat větší účinnosti než předchozí řešení s různým aerodynamickým odporem, ale je mnohem komplikovanější na výrobu a návrh.
+			
+		\bigskip	
+		Díky jednoduchému principu lze sestrojit širokou škálu větrných turbín rozličných tvarů pracujících na odporovém principu. Lze sestrojit jak rotory s horizontální osou (anglicky označované jako HAWT – horizontal axis wind turbine), tak i s osou vertikální (anglicky označované jako VAWT – vertical axis wind turbine)\cite{ve:ve}.
+		
+		Dnes jsou nejpoužívanější turbíny pracující na vztlakovém principu. Základním principem je vztlak vznikající na listech turbíny. Tyto turbíny se používaly několik stovek let u větrných mlýnů; teoretické poznatky o jejich funkci jsou však mnohem mladší. Teoretické základy pro stavbu těchto turbín položil až na začátku 20. století německý fyzik Albert Betz\cite{betz}. Své první poznatky shrnul v knize  \uv{Das Maximum der theoretisch möglichen Ausnutzung des Windes durch Windmotoren}\cite{betz}.
+		
+		Turbíny lze sestrojit jak v horizontálním provedení, tak i vertikálním. Vertikální provedení si nechal patentovat francouzský inženýr aerodynamiky Georges Jean Marie Darrieus\cite{dar}. Běžně se tento typ turbíny označuje jako Darrieova turbína, či jen Darrieus.
+		
+		Horizontální provedení se dnes nejčastěji využívá u velkých větrných elektráren díky relativně snadné možnosti regulace otáček (oproti rotoru Darrieus). Horizontální turbíny se také dříve používaly jako pumpy na vodu – známé mnohalopatkové \uv{americké větrné kolo}\cite{ve:ve}.
+	\section{Výběr typu turbíny}
+		V předchozí kapitole jsem záměrně vynechal porovnání jednotlivých turbín. V této kapitole bych chtěl jednotlivé typy navzájem porovnat a vybrat nejvhodnější pro můj návrh.
+		
+		Odporové turbíny vynikají jednoduchou konstrukcí. Základní typy (např. Savoniův rotor) nejsou příliš náročné na přesnost výroby. Jejich nevýhodou je však nižší účinnost – Savoniův rotor dosahuje maximální účinnosti 23~\%, běžně však méně \cite{Rychetnik:Motory}. Fungují pouze při nízké rychloběžnosti (poměr obvodové rychlosti vůči rychlosti větru; viz. dále kapitola \ref{kap:funkce1}). Díky tomu dosahují malých otáček, což je nevhodné pro potenciální výrobu elektrické energie.
+		
+		Vztlakové turbíny mají vyšší účinnost (až 48~\%, většinou okolo 35~\%) \cite{Rychetnik:Motory} a větší rozsah použitelné rychloběžnosti. Jsou proto vhodné jak např. pro pumpování vody (pomaloběžné rotory), tak i jako rychloběžné pro výrobu elektrické energie. Jejich nevýhodou je však relativně větší náročnost na přesnost výroby a potřebné teoretické znalosti.
+		
+		Vertikální umístění rotoru má oproti horizontálnímu umístění výhodu v~odstranění nutnosti natáčet rotor vůči větru, navíc jsou méně náchylné na turbulence a víry v okolí. Díky tomu jsou schopny pracovat i relativně nízko u země a nepotřebují tedy vysoký stožár\cite{Rychetnik:Motory}\cite{ve:ve}.
+		
+		Pro svůj návrh jsem se rozhodl pro vztlakovou horizontální turbínu. Vztlakové turbíny mají vyšší účinnost, jsou použitelné pro vyšší rychloběžnosti a také jsou technicky zajímavější než odporové. Při volbě mezi svislou a horizontální turbínou jsem se po dlouhém zvažování rozhodl pro horizontální. To i přes fakt, že turbína bude umístěna v~zástavbě, kde je turbulentní okolí. Tudíž lze podle výše uvedeného usuzovat, že je vhodnější vertikální turbína.
+		
+		Vedlo mě k tomu několik faktů; Darrieus není sám o sobě schopný rozběhu. Je mu nutno dodat počáteční rotaci. U~malých turbín se tento nedostatek řeší pomocným, např. Savoniovým, rotorem, který ji rozběhne. O alternativním způsobu rozběhu Darrieovi turbíny pojednává práce \uv{Self-starting Darrieus Wind Turbine}\footnote{Práci lze nalézt na http://www.webalice.it/acecere48/finalreport.pdf} z univerzity Dalhousie. Zde jsou listy turbíny rozděleny na 2 části, které se mohou od sebe rozevírat – při rozběhu jsou rozložené a pracují v odporovém režimu. Při dosažení daných otáček se listy opět složí a pracují ve vztlakovém režimu. Toto řešení je zajímavé, avšak klade ještě větší výrobní nároky – již tak tenké a dlouhé listy je nutno rozpůlit.
+		
+		Pro horizontální turbínu však hlavně rozhodly mé předchozí pozitivní zkušenosti ze stavby a provozu tohoto typu turbíny.
+		

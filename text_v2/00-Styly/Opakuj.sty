@@ -1,0 +1,211 @@
+% Opakování binárních operátorů na lomu řádky.
+% Napsal Karel Horák
+
+\chardef\CatcodeAt=\the\catcode`\@
+\catcode`\@=11
+\message{ Opakovani relaci a operaci pri rozdeleni.}
+\message{ Jako negace =, >, <, \string\equiv\space uzivejte po rade 
+         \string\ne, \string\ng, \string\nl, \string\nq.}
+\message{ Unarni minus a unarni plus se pise \string\m, \string\p.}
+%\message{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% původní význam makra "\NějakáRelace" má příkaz "\original\NějakáRelace"
+% znaky  +, -, :, <, =, >  jsou aktivní pouze ve formulích
+% (ani v $\mskip-4pt$, či $\let\v=\in$ by neměly zlobit)
+
+\def\original#1{\csname\string#1\endcsname}
+
+
+\mathchardef\pl@s="202B
+\mathchardef\min@s="2200
+\mathchardef\dv@j="303A
+\mathchardef\l@ss="313C
+\mathchardef\rovn@="303D
+\mathchardef\gre@ter="313E
+\mathchardef\n@t="3236
+\mathchardef\nd="3A2D
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%  \opakuj   %%%%%%%%%%%%%%%%%% používat jen na neopakovací verze
+\outer\def\opakuj#1{\expandafter\let\csname\string#1\endcsname=#1
+   \def#1{\nobreak\csname\string#1\endcsname\nobreak\discretionary
+          {}{\hbox{$\csname\string#1\endcsname$}}{}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% definice se musí přizpůsobit pomocí \original %%%%%%%%%%%%%% \def's
+% \def\le{\mathrel{\mathpalette\less{}}}
+% \def\less#1#2{\raise.5ex\hbox{$#1\l@ss$}\llap
+%                       {\lower.6ex\hbox{$#1\rovn@$}}}
+% \def\ge{\mathrel{\mathpalette\great{}}}
+%  \def\great#1#2{\raise.5ex\hbox{$#1\gre@ter$}\llap
+%                       {\lower.6ex\hbox{$#1\rovn@$}}}
+\opakuj\le               \let\leq=\le    \let\leqq=\le
+\opakuj\ge               \let\geq=\ge    \let\geqq=\ge
+
+\def\nequiv{\mathrel{\mathpalette\c@ncel{\original\equiv}}}
+\opakuj\nequiv                   \let\nq=\nequiv
+\def\neq{\message{ }
+         \message{ ? \string\ne(not=) nebo \string\nq(not\string\equiv) ? }
+         \global\read16 to\neq  \neq}
+
+\def\st{\ifmmode\def\next{^{\circ}}%
+          \else\def\next{$^{\circ}$}\fi\next}
+
+
+\def\relbar{\mathrel{\smash\min@s}}         %  \smash, because  -  and  +
+\def\Relbar{\mathrel\rovn@}                 %          have the same height
+
+\def\hookrightarrow{\lhook\joinrel\original\rightarrow}
+\def\hookleftarrow{\original\leftarrow\joinrel\rhook}
+\def\Longrightarrow{\Relbar\joinrel\original\Rightarrow}
+\def\longrightarrow{\relbar\joinrel\original\rightarrow}
+\def\longleftarrow{\original\leftarrow\joinrel\relbar}
+\def\Longleftarrow{\original\Leftarrow\joinrel\Relbar}
+\def\longleftrightarrow{\original\leftarrow\joinrel\original\rightarrow}
+\def\Longleftrightarrow{\original\Leftarrow\joinrel\original\Rightarrow}
+\def\rightarrowfill{$\m@th\mathord-\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord-\mkern-2mu$}\hfill
+  \mkern-6mu\mathord\original\rightarrow$}
+\def\leftarrowfill{$\m@th\mathord\original\leftarrow\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord-\mkern-2mu$}\hfill
+  \mkern-6mu\mathord-$}
+
+\opakuj\hookrightarrow
+\opakuj\hookleftarrow
+\opakuj\Longrightarrow
+\opakuj\longrightarrow
+\opakuj\longleftarrow
+\opakuj\Longleftarrow
+\opakuj\longleftrightarrow
+\opakuj\Longleftrightarrow
+
+\def\mapsto{\mapstochar\original\rightarrow}  \opakuj\mapsto
+\def\longmapsto{\mapstochar\original\longrightarrow}   \opakuj\longmapsto
+\opakuj\bowtie
+\def\models{\mathrel|\joinrel\rovn@}     \opakuj\models
+
+
+\def\*{\discretionary{\thinspace\the\textfont2\char2}%
+                     {\the\textfont2\char2\thinspace}{}}
+\def\iff@{\mskip\thickmuskip\original\Longleftrightarrow\mskip\thickmuskip}
+\def\iff{\iff@\discretionary{\hbox{$\!\!$}}{\hbox{$\!\iff@$}}{}}
+
+\def\cong{\mathrel{\mathpalette\@vereq{\original\sim}}} % congruence sign
+\def\@vereq#1#2{\lower.5\p@\vbox{\baselineskip\z@skip\lineskip-.5\p@
+    \ialign{$\m@th#1\hfil##\hfil$\crcr#2\crcr\rovn@\crcr}}}
+\opakuj\cong                  % congruence sign
+\def\notin{\mathrel{\mathpalette\c@ncel{\original\in}}}   \opakuj\notin
+                                                    %\c@ncel ??
+\def\rlh@#1{\vcenter{\hbox{\ooalign{\raise2pt
+          \hbox{$#1\original\rightharpoonup$}\crcr
+        $#1\original\leftharpoondown$}}}}
+\opakuj\rightleftharpoons
+\def\doteq{\buildrel\textstyle.\over\rovn@}       \opakuj\doteq
+
+\opakuj\bmod
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% \mathchardef's
+\opakuj\wedge      \let\land=\wedge
+\opakuj\vee           \let\lor=\vee
+\opakuj\cap
+\opakuj\cup
+\opakuj\sqcap
+\opakuj\sqcup
+\opakuj\uplus
+\opakuj\amalg
+\opakuj\diamond
+\opakuj\bullet
+\opakuj\wr
+\opakuj\div
+\opakuj\odot
+\opakuj\oslash
+\opakuj\otimes
+\opakuj\ominus
+\opakuj\oplus
+\opakuj\mp
+\opakuj\pm
+%\opakuj\circ
+%\opakuj\bigcirc
+\opakuj\setminus     % for set difference A\setminus B
+\opakuj\cdot
+%\opakuj\ast
+\opakuj\times
+\opakuj\star
+
+\opakuj\propto
+\opakuj\sqsubseteq
+\opakuj\sqsupseteq
+\opakuj\parallel    \opakuj\nparallel  
+\opakuj\mid
+\opakuj\dashv
+\opakuj\vdash
+\opakuj\nearrow
+\opakuj\searrow
+\opakuj\nwarrow
+\opakuj\swarrow
+\opakuj\Leftrightarrow
+\opakuj\Leftarrow
+\opakuj\Rightarrow
+\opakuj\succ
+\opakuj\prec
+\opakuj\approx
+\opakuj\succeq
+\opakuj\preceq
+\opakuj\supset
+\opakuj\subset
+\opakuj\supseteq
+\opakuj\subseteq
+\opakuj\in
+\opakuj\ni                          \let\owns=\ni
+\opakuj\gg
+\opakuj\ll
+\opakuj\leftrightarrow
+\opakuj\leftarrow                   \let\gets=\leftarrow
+\opakuj\rightarrow                  \let\to=\rightarrow
+\opakuj\sim
+\opakuj\simeq
+\opakuj\perp
+\opakuj\equiv                       \let\eq=\equiv
+\opakuj\asymp
+\opakuj\smile
+\opakuj\frown
+\opakuj\leftharpoonup
+\opakuj\leftharpoondown
+\opakuj\rightharpoonup
+\opakuj\rightharpoondown
+\opakuj\nd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% konec  \opakuj
+
+
+\mathcode`\+="8000%
+\mathcode`\-="8000%
+\mathcode`\:="8000%
+\mathcode`\<="8000%
+\mathcode`\=="8000%
+\mathcode`\>="8000%
+{\catcode`\+=\active 
+    \gdef+{\pl@s\nobreak\discretionary{}{\hbox{$\pl@s$}}{}}}
+{\catcode`\-=\active 
+    \gdef-{\min@s\nobreak\discretionary{}{\hbox{$\min@s$}}{}}}
+{\catcode`\:=\active 
+    \gdef:{\dv@j\nobreak\discretionary{}{\hbox{$\dv@j$}}{}}}
+{\catcode`\<=\active 
+    \gdef<{\l@ss\nobreak\discretionary{}{\hbox{$\l@ss$}}{}}}
+{\catcode`\==\active 
+    \gdef={\rovn@\nobreak\discretionary{}{\hbox{$\rovn@$}}{}}}
+{\catcode`\>=\active 
+    \gdef>{\gre@ter\nobreak\discretionary{}{\hbox{$\gre@ter$}}{}}}
+
+
+\def\not#1{\ifcat=#1\decid@char#1\else
+    \n@t\original#1\discretionary{}{\hbox{$\n@t\original#1$}}{}\fi} 
+\def\decid@char#1{\if=#1\ne\else
+                    \if<#1\nl\else
+                        \if>#1\ng\fi\fi\fi}
+
+\def\m{\min@s\nobreak}      \def\p{\pl@s\nobreak}
+
+\def\nl{\n@t\l@ss\nobreak\discretionary{}{\hbox{$\n@t\l@ss$}}{}}
+\def\ne{\n@t\rovn@\nobreak\discretionary{}{\hbox{$\n@t\rovn@$}}{}}
+\def\ng{\n@t\gre@ter\nobreak\discretionary{}{\hbox{$\n@t\gre@ter$}}{}}
+\catcode`\@=\CatcodeAt

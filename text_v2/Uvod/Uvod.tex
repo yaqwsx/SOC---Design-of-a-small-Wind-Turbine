@@ -1,0 +1,28 @@
+\chapter{Úvod}
+
+	Větrné elektrárny jsou často diskutovaným tématem. Některým lidem se líbí, některým ne. Já sám se řadím mezi příznivce větrných elektráren. Jedná se o zajímavá zařízení se zajímavým technickým původem. Neberu je však jako hlavní a jediný zdroj energie. Považuji je spíše za ukázky technické zdatnosti lidstva.
+	
+	\section{Cíle práce}
+		Díky mému zájmu jsem před několika lety začal sám v této oblasti experimentovat a zkoumat. Mnoho pokusů však bylo marných a neúspěšných. Doposud jsem zdaleka nedosáhl mých představ. Avšak za tu dobu jsem se jim přiblížil.
+		
+		Tato práce mapuje dva největší počiny v mém bádání – sestrojení první teorií podložené větrné turbíny a návrh nové, z ní vycházející, která zatím nebyla sestrojena.
+		
+		Mým cílem je sestrojit malou větrnou elektrárnu umístěnou na zahradě rodinného domku. Nechci však sestrojit ekonomicky rentabilní elektrárnu (takovou, která vyrobí elektřinu ve větší hodnotě, než stála její stavba). Vedou mě k tomu dva důvody – jednak elektrárnu stavím pro poznání, nikoliv pro zisk; ale hlavně je to pro malé elektrárny (průměr do 5 m) v podstatě nemožné (hlavně díky malé účinnosti profilů na malých rotorech, ale také díky tomu, že získaná energie roste se čtvercem poloměru rotoru). Chci sestrojit elektrárnu, která se bude snažit dosáhnout co největší účinnosti a bude aerodynamicky co nejdokonalejší.
+		
+		Proto jsem tuto práci zaměřil relativně úzce. Zaměřuji se zde pouze na návrh turbíny, nikoliv generátoru, regulačního systému a dalších. Záměrně zde také vynechávám pojednání o výběru stanoviště pro elektrárnu (protože nemám možnost si stanoviště vybírat). Díky mým požadavkům nedělám v mém návrhu kompromisy mezi komplikovaností výroby a získanou energií.
+		
+		Práci jsem rozdělil na dvě hlavní části. V části \ref{part:navrh} nejprve shrnuji teoretické poznatky, které byly doposud objeveny, o funkci větrných turbín. Na základě těchto poznatků pak dále popisuji návrh nové turbíny. Cílem bylo vytvořit CAD model turbíny, dle kterého bude tato turbína v~budoucnu vyrobena.
+		V~části \ref{part:stavba} pak popisuji návrh a výrobu mé první turbíny, jejíž návrh byl teoreticky podložen. V~této práci ji označuji jako \uv{první prototyp}. Také zde uvádím zkušenosti s~jejím provozem.
+	
+	\section{Použité zdroje}
+		\subsection{Literatura}
+			Zdrojem pro jednotlivé teorie byla především kniha \cite{Rychetnik:Motory}. Ta poskytuje ucelený přehled základních poznatků a hlavně na rozdíl od ostatních knih, které jsem četl, tuto teorii vysvětluje, a nepopisuje pouze její aplikaci. Narazil jsem v ní však na několik nepřesností (např. překlepy ve vzorcích). Na tuto knihu mě nasměrovaly internetové stránky \cite{ve:ve}, které mi před několika lety poskytly počáteční impuls pro další bádání a stavbu.
+			
+			Údaje z této knihy jsem doplňoval několika informacemi z knihy \cite{Crome:Technika}. Na doplnění údajů o~různých osobnostech aerodynamiky jsem použil informace z Wikipedie.
+			
+			Data o aerodynamických profilech byla převzata ze stránek \cite{profil}.
+			
+		\subsection{Obrázky}
+			Veškeré obrázky a fotografie jsou mé vlastní a byly vytvořeny pro účely této práce. Obrázky jsou často inspirovány obrázky z knihy \cite{Rychetnik:Motory}. Jsou doplněné, popř. krácené, o informace vhodné pro mé parafrázování teorie.
+		\subsection{Software}
+			Práce byla vysázena za pomoci \LaTeX u a šablony od Tomáše Pikálka\footnote{http://tpikalek.cz/latex/}. Pro nákres obrázků jsem použil program IPE\footnote{http://ipe7.sourceforge.net/}. Pro sestavení CAD modelu jsem použil studentskou verzi programu SolidWorks. Pro pomocné výpočty a tvorbu grafů jsem použil program Microsoft Excel. Na pomocné algebraické výpočty (např. derivace, úprava složitých výrazů pro zamezení chyb) jsem použil program Microsoft Mathematics\footnote{http://www.microsoft.com/download/en/details.aspx?id=15702}. Pro provedení aerodynamických simulací jsem použil studentskou verzi programu Autodesk Simulation Multiphysics\footnote{http://www.microsoft.com/download/en/details.aspx?id=15702}  z~programu Autodesk Club\footnote{http://www.autodeskclub.cz/student}. Pro vývoj a zkompilování pomocného programu pro výpočet turbíny jsem použil IDE Microsoft Visual C++ Express\footnote{http://www.microsoft.com/visualstudio/en-us/products/2010-editions/express}.

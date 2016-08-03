@@ -1,0 +1,155 @@
+% LaTeX šablona pro seminární a jiné práce, v1.0 (2011-05-29)
+% Tomáš Pikálek <tpikalek@gmail.com>, http://www.tpikalek.net
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% Před použitím doporučuji přečíst roubor README.TXT  %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+% Toto je hlavní soubor, který obsahuje některé definice a základní kostru dokumentu
+% Kvůli přehlednosti nedoporučuji do tohoto souboru psát samotný text práce
+% Text práce rozdělte do více souborů (nejlépe ve více složkách), ty sem poté vložte
+
+% Vždy se překládá pouze tento soubor, nikoliv soubory jednotlivé!
+% Např. používáte-li program Texmaker, otevřete tento soubor a dejte Volby → Prohlásit současný dokument za hlavní dokument
+% Poté můžete upravovat jednotlivé soubory a při spuštění překladu se vždy bude překládat tento soubor
+
+
+
+
+% Typ dokumentu - doporučuji neměnit
+% Tisknete-li oboustranně, první řádek zakomentujte nebo smažte a odkomentujte druhý řádek
+\documentclass [a4paper,11pt,oneside,notitlepage,openright]{report} % Typ dokumentu - pokud tisknete jednostranně
+%\documentclass [a4paper,11pt,twoside,notitlepage,openright]{report} % Typ dokumentu - pokud tisknete oboustranně
+
+
+% Načte styly dokumentu
+% Jestliže chcete ovlivnit vzhled dokumentu, upravte právě tento soubor
+\usepackage{00-Styly/Styly}
+\usepackage{00-Styly/kod}
+
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	\def \Jmeno{Středoškolská odborná činnost} % Typ práce
+	\def \Kategorie{Obor SOČ: 02 fyzika} % Kategorie práce
+	\def \NazevCJ{Návrh malé větrné turbíny} % Návrh malé větrné turbíny
+	\def \NazevAJ{Design of small wind turbine} % Design of small wind turbine
+	\def \Autor {Jan Mrázek} % Autor
+	\def \Datum {Hulín 2012} % Místo a datum
+	\def \Podepsano {14. května 2012} % Datum podpisu prohlášení
+	\def \Skola {Gymnázium Kroměříž\\\small{Masarykovo náměstí 496, 767 01 Kroměříž}} % Škola
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+
+% Nastavit autora a titulek pro PDF výstup
+\author{\Autor}
+\title{\Jmeno - \NazevCJ}
+
+
+\begin{document}
+
+% Titulní stránka
+% Obsahuje školu, typ a název práce, místo, datum a autora
+% Pokud Vaše škola požaduje specifickou titulní stranu, je třeba vyměnit
+\input{00-Hlavicka/Titulka.tex}
+\cleardoublepage
+
+% Nastavit prázdné stránky a číslování na římské číslice
+% Toto se použije pro strany, které jsou před samotnou prací
+\pagestyle{plain}
+\pagenumbering{Roman}
+
+% Prohlášení
+% Následující soubor upravte, pokud nevyhovuje požadavkům
+\input{00-Hlavicka/Prohlaseni.tex}
+\newpage
+
+% Poděkování
+% Upravte následující soubor
+\input{00-Hlavicka/Podekovani.tex}
+\cleardoublepage
+
+% Abstrakt
+% Upravte následující soubor
+\input{00-Hlavicka/Abstrakt.tex}
+\cleardoublepage
+
+% Originální zadání v PDF
+% Jestlite máte originál zadání a máte jej v práci uvádět, zde jej můžete vložit jako PDF
+% V opačném případě následující řádky smažte nebo zakomentujte
+%\includepdf{00-Hlavicka/Zadani.pdf}
+%\cleardoublepage
+
+% Posudek v PDF
+% Jestliže máte na práci vypracovaný posudek, zde jej můžete vložit jako PDF
+% V opačném případě následující řádky smažte nebo zakomentujte
+%\includepdf{00-Hlavicka/Posudek.pdf}
+\cleardoublepage
+
+% Obsah
+\tableofcontents
+\cleardoublepage
+
+% Seznam obrázků
+%\addcontentsline{toc}{chapter}{Seznam obrázků}
+%\listoffigures
+\cleardoublepage
+
+% Seznam tabulek
+%\addcontentsline{toc}{chapter}{Seznam tabulek}
+%\listoftables
+\cleardoublepage
+
+% Nastavit normální číslování stránek
+% Toto se použije na samotný text práce
+\pagenumbering{arabic}
+%\pagestyle{headings}
+%\pagestyle{headings}
+
+
+
+
+% Načíst soubory
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Zde se načítají soubory s vlastním textem práce
+% Doporučuji se držet výchozího schématu
+% Je vhodné kvůli přehlednosti celou práci rozdělit do několika složek a souborů, každý zde pak vložit zvlášť
+% U krátkých prací doporučuji nepoužívat části, ale dělit jen na kapitoly
+		\input{Uvod/Uvod.tex}
+	\part{Návrh malé větrné turbíny}\label{part:navrh}
+		\input{Navrh/navrh.tex}
+	\part{Stavba a zkušenosti s~provozem prvního prototypu}\label{part:stavba}
+		\input{prototyp/prototyp.tex}
+	\part{Závěr}\label{part:zaver}
+		\input{zaver/zaver.tex}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+
+% Bibliografie
+\nocite{*} % Uvést všechny záznamy, i necitované
+\bibliography{00-Reference/Reference}
+\addcontentsline{toc}{chapter}{Literatura}
+\cleardoublepage
+
+% Nastaví číslování stránek pro přílohy
+\pagenumbering{Roman}
+
+
+
+% Přílohy
+\part{Přílohy}
+\begin{appendix}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Zde se vkládají přílohy
+% Můžete vkládat soubory TeX či přímo PDF soubory
+% Samotný text příloh doporučuji kvůli přehlednosti mít ve zvlášních souborech
+%	\input{Prilohy/01-SeznamSoucastek.tex}
+	\input{Prilohy/kody.tex}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\end{appendix}
+
+
+
+\end{document}

@@ -1,0 +1,92 @@
+% Nastavení češtiny
+\usepackage[utf8]{inputenc} % Kódování
+\usepackage[english,czech]{babel} % Čeština
+\usepackage[T1]{fontenc} % České fonty
+\usepackage{float}
+\floatstyle{boxed}
+
+
+\usepackage[font=small]{caption}
+\usepackage{subfigure}
+
+% Vlna - spojky na konci řádku
+% Odkomentujte následující řádek pokud máte aktivovany encTeX
+%\usepackage{encxvlna}
+
+% Nastavení okrajů stránky
+\setlength{\oddsidemargin}{0mm} 
+\setlength{\textwidth}{159.2mm}\setlength{\topmargin}{0mm} 
+\setlength{\textheight}{230mm}
+\setlength{\headheight}{14.5pt}
+\setlength{\oddsidemargin}{5mm}
+\setlength{\evensidemargin}{-\oddsidemargin}
+
+% Obrázky
+\usepackage{graphicx,graphics,epstopdf,fancyhdr} % Grafika
+\epstopdfsetup{suffix=}
+\usepackage[usenames,dvipsnames,dvips]{color} % Barvy
+\DeclareGraphicsRule{.eps}{pdf}{.pdf}{`epstopdf #1} % Převod EPS obrázků
+\DeclareGraphicsRule{.ipe}{pdf}{.pdf}{`ipetoipe -pdf #1}  % Převod IPE obrázků
+\DeclareGraphicsExtensions{.pdf}
+\definecolor{Gold}{rgb}{1.,0.84,0.}
+\definecolor{pink}{rgb}{1, 0.506, 0.82}
+\definecolor{brown}{rgb}{0.51, 0.337, 0}
+\definecolor{orange}{rgb}{0.984, 0.431, 0.341}
+\definecolor{gray}{rgb}{0.753, 0.753, 0.753}
+\definecolor{dred}{rgb}{0.78, 0, 0}
+\definecolor{dgreen}{rgb}{0, 0.6, 0}
+\definecolor{dblue}{rgb}{0, 0, 0.6}
+\definecolor{dmagenta}{rgb}{0.569, 0.098, 0.788}
+\definecolor{dgray}{rgb}{0.5, 0.5, 0.5}
+
+% Tabulky
+\usepackage{multirow} %Tabulky s většími buňkami
+
+% Odstavce
+\usepackage{indentfirst} % Odsadí první i odstavec
+\usepackage{setspace} % Řádkování
+
+% PDF
+\usepackage{pdflscape} % Stránka na šířku
+\usepackage{pdfpages} % Vkládání celých PDF stran
+
+% Vodoznak, v případě použití odkomentujte následující řádky
+%\usepackage{draftwatermark}
+%	\SetWatermarkScale{5.5} % Vodoznak - velikost
+%	\SetWatermarkLightness{0.85} % Vodoznak - světlost
+%	\SetWatermarkText{KONCEPT} % Vodoznak - text
+
+% Matematika
+\usepackage{amsmath,amssymb,wasysym} % Matika, symboly
+\mathcode`\,="013B % Používá se desetinná čárka
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\renewcommand{\tan}[1]{\,\mathrm{tg}\,{#1}}
+\renewcommand{\cot}[1]{\,\mathrm{cotg}\,{#1}}
+
+% Opakování některých znaků na začátku řádku
+% Zkuste odkomentovat a nezpůsobuje-li problémy, nechte odkomentováno
+%\usepackage{Styly/Opakuj}
+
+% Chemie
+\usepackage[version=3]{mhchem}
+
+% Adresy
+\usepackage[bookmarks,unicode]{hyperref}
+\usepackage{url}
+
+% Bibliografie
+\usepackage{natbib}
+%\newcommand{\uv}[1]{\quotedblbase #1\textquotedblleft}
+\bibpunct{[}{]}{,}{n}{}{;}
+\def\UrlLeft#1\UrlRight{<\special{html:<a href="#1">}#1\special{html:</a>}>}
+\renewcommand{\emph}[1]{\textsl{#1}}
+\newcommand{\+}[1]{\v{#1}}
+\bibliographystyle{00-Styly/csplainnat}
+
+% Sirotky, vdovy, rozdělení slov
+\widowpenalty100000 % Zamezit vdovám
+\clubpenalty100000 % Zamezit sirotkům
+\brokenpenalty100000 % Zamezit rozdělení slova na dvě stránky
+
+% Přílohy
+\def\appendixname{Příloha}

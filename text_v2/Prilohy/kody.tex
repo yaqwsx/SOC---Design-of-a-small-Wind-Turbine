@@ -1,0 +1,157 @@
+\chapter{Zdrojové kódy programu pro výpočet}
+V následující příloze jsou uvedeny zdrojové kódy k programu pro výpočet dle Glauertovy teorie. Program je napsán pro C++, kód je komentován, tudíž by měl být snadno srozumitelný.
+
+Program nepřebírá žádný uživatelský vstup, data jsou zadávána přímo do zdrojového kódu, jelikož program je jednoúčelový. Výstupem je tabulka tabulátorem oddělených dat v souboru out.txt.
+
+V programu je záměrně pro názornost použit desítkový základ pro inkrement, ačkoliv plně nevyužívá přesnosti čísla s~plovoucí desetinou čárkou (vzniká zde zaokrouhlovací chyba). Pro zvýšení přesnosti je nutné použít dvojkový základ (tedy číslo ve formátu $2^n$, nikoliv $10^n$). Avšak i takto je výpočet prováděn s větší přesností, než je v praxi potřeba.
+
+Program je krátký, je rozdělen do 3 souborů: main.cpp, functions.h a functions.cpp. V obsahu souborů by neměl být problém se zorientovat.
+
+\section{main.cpp}
+\begin{mylisting}
+\begin{verbatim}
+#define _USE_MATH_DEFINES
+#include <iostream>
+#include <fstream>
+#include "functions.h"
+#include <iomanip>
+
+using namespace std;
+
+const char t = '\t';//Definování tabulátoru pro zkrácení kódu
+
+const unsigned int presicion = 10;//Definuje počet platných číslic pro výstup
+const unsigned int z = 3;//Počet lopatek turbíny
+const double thickness = 0.1;//Tloušťka profilu v poměru ku délce
+const double cy = 1.303;//Součinitel vztlaku
+const double cx = 0.017;//Součinitel odporu
+const double E = tan(cx/cy);//Jemnost profilu
+const double L = 5;//Rychloběžnost
+const double R = 1.25;//Poloměr turbíny
+const size_t fractions = 200;//Počet segmentů, na které je list pro výpočet rozdělen
+const double rIncrement = R/fractions;//Definuje inkrement poloměru při výpočtu
+double const A = 5.5/180*M_PI;//Ideální úhel náběhu profilu v radiánech
+const double frontAspect = 1.0/3.0;//Udává vzdálenost osy, okolo které se otáčí profil; od počátku
+
+int main()
+{
+       ofstream o("out.txt");//Výstupní soubor
+       double r = rIncrement*3;//První 3 segmenty u středu přeskakuji
+               // - nejsou použity a jich výpočet trvá příliš dlouho
+       size_t counter = 0;//Pro účely debuggování
+       o << "Polomer\th\tk\tB\tCp\tb\tz1\ty1\tz2\ty2\tx" << endl;//Nadpis tabulky
+       for(r; r <= R; r += rIncrement)
+       {
+               counter++;
+               cout << "Pocitam " << counter << t;
+               data Data = CountCoefficients(E, r/R*L);
+               cout << "Hotovo" << endl;
+               double b = 8*M_PI*r*cos(E)*(Data.h-1)*sin(Data.B)*cos(Data.B)/
+                  (sin(Data.B-E)*(Data.h+1))/(z*cy);//Výpočet délky tětivy
+               double z1, z2, y1, y2;
+               //Výpočet souřadnic křivek náběžné a odtokové hrany
+               //násobení 1000 je zde k převedení rozměrů na milimetry pro CAD program
+               y1 = (b*frontAspect*sin(Data.B-A)+cos(Data.B-A)*b*thickness/2)*1000;
+               y2 = (-b*(1-frontAspect)*sin(Data.B-A)+cos(Data.B-A)*b*thickness/2)*1000;
+               z1 = (b*frontAspect*cos(Data.B-A)-sin(Data.B-A)*b*thickness/2)*1000;
+               z2 = (-b*(1-frontAspect)*cos(Data.B-A)-sin(Data.B-A)*b*thickness/2)*1000;
+               //Nastavení přesnosti
+               o << setprecision(presicion);
+               //Výpis dat
+               o << r << t << Data.h << t << Data.k << t << Data.B << t << Data.Cp << t << b << t
+                       << z1 << t << y1 << t << z2 << t << y2 << t << r*1000 << endl;
+       }
+       return 0;
+}
+
+\end{verbatim}
+\end{mylisting}
+
+\section{functions.h}
+\begin{mylisting}
+\begin{verbatim}
+#pragma once
+
+#define _USE_MATH_DEFINES
+#include <cmath>
+
+const double incrementLimit = pow(10.0, -16);//Definuje přesnost celého výpočtu
+const double differentionLimit = pow(10.0, -9);//Definuje přesnost výpočtu k a beta
+const double incrementStep = 10;//Definuje základní krok inkrementu př změně směru
+const double incrementDefault = pow(10.0, -6);//Počáteční velikost inkrementu
+extern double increment;
+
+struct data
+{
+       double B, k, h, Cp;
+       /*B je beta, k a h jsou koeficienty a Cp je součinitel výkonu*/
+};
+
+data CountCoefficients(double E, double l);//Funkce spočítá data pro zadané epsilon a rychloběžnost na poloměru r
+
+\end{verbatim}
+\end{mylisting}
+
+\section{functions.cpp}
+\begin{mylisting}
+\begin{verbatim}
+#include "functions.h"
+
+double increment;//Definice proměnné inkremetu
+
+data CountCoefficients(double E, double l)
+{
+       increment = incrementDefault;//Natavení inkrementu
+       data ret;//Data k navrácení
+       //Počáteční nastavení
+       ret.k = 1.0/3.0;
+       ret.h = 1 +  pow(10.0, -5);
+       ret.Cp = 0;
+
+       //Nastavení bety na první hodntou
+       ret.B = atan((1+ret.k)/(1+ret.h)/l);
+       bool last = true;//definuje, zda-li minulá změna inkrementu byla kladná (true) nebo záporná (false)
+       size_t iterationCount = 0;//Pro účely debuggování
+
+       while(increment >= incrementLimit)//Dokud inkrement nedosáhne daného řádu...
+       {
+               //Dopočítání k
+               double differention;
+               double kn = ret.k;
+               size_t iterationCount2 = 0;
+               do
+               {
+                       ret.k = kn;
+                       kn = 1 - (ret.h-1)*l/tan(ret.B-E);
+                       ret.B = atan((1+kn)/(1+ret.h)/l);
+                       iterationCount2++;
+                       differention = atan((1+kn)/(1+ret.h)/l)-atan((1+ret.k)/(1+ret.h)/l);
+               }while(differention > differentionLimit);
+
+               //Určení součinitele výkonu
+               double c = l*l*(1+kn)*(ret.h-1);
+               if(c > ret.Cp)
+               {
+                       //Součinitel je větší než předchozí
+                       if(last != true)
+                               increment /= incrementStep;//Změna směru, snížení řádu inkrementu
+                       last = true;
+                       ret.h += increment;
+               }
+               else
+               {
+                       //Součinitel je menší než předchozí
+                       if(last != false)
+                               increment /= incrementStep;//Změna směru, snížení řádu inkrementu
+                       ret.h -= increment;
+               }
+
+               ret.Cp = c;
+               ret.k=kn;
+
+               iterationCount++;
+       }
+       return ret;
+
+\end{verbatim}
+\end{mylisting}
